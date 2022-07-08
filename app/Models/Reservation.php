@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Reservation extends Model
@@ -28,9 +29,9 @@ class Reservation extends Model
     }
 
     //seat relation
-    public function seat() : HasOne
+    public function seat() : BelongsTo
     {
-        return $this->hasOne(Seat::class);
+        return $this->belongsTo(Seat::class);
     }
 
        

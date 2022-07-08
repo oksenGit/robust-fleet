@@ -22,7 +22,8 @@ class Trip extends Model
     //Stops relation
     public function stops() : HasMany
     {
-        return $this->hasMany(Stop::class);
+        //stops ordered by order
+        return $this->hasMany(Stop::class)->orderBy('order');
     }
 
     //Bus relation

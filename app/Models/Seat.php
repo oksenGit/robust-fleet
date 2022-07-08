@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Seat extends Model
 {
@@ -21,9 +21,9 @@ class Seat extends Model
     
 
     //trip relation
-    public function trip() : HasOne
+    public function trip() : BelongsTo
     {
-        return $this->hasOne(Trip::class);
+        return $this->belongsTo(Trip::class);
     }
  
 

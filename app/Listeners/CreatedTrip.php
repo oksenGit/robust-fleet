@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Helpers\TripHelper;
+use App\Services\TripService;
 
 class CreatedTrip
 {
@@ -15,7 +15,7 @@ class CreatedTrip
     public function handle($trip)
     {
         $NUMBER_OF_SEATS = 12;
-        $tripHelper =  new TripHelper();
-        $tripHelper->createSeats($trip->id, $NUMBER_OF_SEATS);
+        $tripService =  new TripService();
+        $tripService->createTripSeats($trip->id, $NUMBER_OF_SEATS);
     }
 }

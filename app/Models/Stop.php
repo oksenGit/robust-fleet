@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Stop extends Model
 {
@@ -21,14 +21,14 @@ class Stop extends Model
     
 
     //trip relation
-    public function trip() : HasOne
+    public function trip() : BelongsTo
     {
-        return $this->hasOne(Trip::class);
+        return $this->belongsTo(Trip::class);
     }
 
     //city relation
-    public function city() : HasOne
+    public function city() : BelongsTo
     {
-        return $this->hasOne(City::class);
+        return $this->belongsTo(City::class);
     }
 }
