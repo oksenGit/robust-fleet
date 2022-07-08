@@ -14,7 +14,7 @@ class CreatedTrip
      */
     public function handle($trip)
     {
-        $NUMBER_OF_SEATS = 12;
+        $NUMBER_OF_SEATS = config('values.NUMBER_OF_SEATS');
         $tripService =  new TripService();
         $tripService->createTripSeats($trip->id, $NUMBER_OF_SEATS);
     }
