@@ -19,5 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Rotue::post('/user/create', [User::class, 'createUser']);
+
 Route::get('/availableSeats', [TripController::class, 'availableSeats']);
 Route::post('/bookSeat', [TripController::class, 'bookSeat']);
