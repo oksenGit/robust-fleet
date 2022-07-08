@@ -18,6 +18,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        'eloquent.created: App\Models\Trip' => [
+            "App\Listeners\CreatedTrip",
+        ],
     ];
 
     /**
