@@ -7,6 +7,7 @@ use App\Models\Reservation;
 use App\Models\Seat;
 use App\Models\Trip;
 use Carbon\Carbon;
+use Exception;
 
 class TripService
 {
@@ -48,6 +49,28 @@ class TripService
     }
 
     return $availableSeats;
+  }
+
+  public function bookSeat($seat_id, $departureCityId, $destinationCityId)
+  {
+    $departureCity = City::find($departureCityId);
+    $destinationCity = City::find($destinationCityId);
+    
+    if (!$this->selectedStopsAreValid($seat_id, $departureCityId, $destinationCityId)) {
+      throw new Exception(__('app.error_stop_not_belong_to_trip'), 406);
+    }
+
+    if (!$this->isSeatAvailable($seat_id, $departureCity, $destinationCity)) {
+      throw new Exception(__('app.error_seat_already_booked'), 409);
+    }
+
+
+    $reservation = Reservation::create([
+      'seat_id' => $seat_id,
+      'departure_city_id' => $departureCityId,
+      'destination_city_id' => $destinationCityId,
+    ]);
+    return $reservation;
   }
 
   private function getTripsContainingStops(int $departureCityId, int $destinationCityId)
@@ -94,7 +117,6 @@ class TripService
     if (!$reservation) {
       return true;
     }
-    // dd($this->reservedSeatWillBeAvailable($reservation, $departureCity, $destinationCity));
     return $this->reservedSeatWillBeAvailable($reservation, $departureCity, $destinationCity);
   }
 
@@ -115,5 +137,17 @@ class TripService
   {
     $stop = $reservation->seat->trip->stops->where('city_id', $cityID)->first();
     return $stop->order;
+  }
+
+  private function selectedStopsAreValid($seat_id, $departureCityID, $destinationCityID)
+  {
+    $seat = Seat::find($seat_id);
+    $trip = Trip::find($seat->trip_id);
+    $departureStop = $trip->stops->where('city_id', $departureCityID)->first();
+    $destinationStop = $trip->stops->where('city_id', $destinationCityID)->first();
+    if ($departureStop == null ||  $destinationStop == null) {
+      return false;
+    }
+    return  $departureStop->order < $destinationStop->order;
   }
 }
