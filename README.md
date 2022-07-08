@@ -1,64 +1,56 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Robust Fleet
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Fleet Managment System
 
-## About Laravel
+## Versions
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Laravel: 9.2.0
+- PHP: 8.1.0
+- MYSQL: 5.7.36
+- MariaDB: 10.6.5
+- php.ini and my.ini added to repo just in case
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Initialization
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- clone the repo and run composer install
+- copy .env.example into .env
 
-## Learning Laravel
+### creating the database
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### easy way
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- to create the database automatically import the robust-fleet.sql.zip SQL Dump
 
-## Laravel Sponsors
+#### manually
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- create database named `robust-fleet`
+- run `php artisan migrate`
+- import each table individually if you want the test data (disabling forgein key check will make your life easier)
 
-### Premium Partners
+### Running the server
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+run the server locally using `php artisan serve`
 
-## Contributing
+## Admin
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### admin panel is create using Voyager
 
-## Code of Conduct
+- To login into the Admin Panel go to <http://127.0.0.1:8000/admin> (change link and port if required)
+- email: admin@admin.com
+- password: 123456
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Endpoint
 
-## Security Vulnerabilities
+ the app only has two end points as the task requires
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Available seats
 
-## License
+- `GET: api/availableSeats?departure_city_id=1&destination_city_id=4`
+get all available seats in all the trips that have station from  `departure_city_id` to `destination_city_id`
+- response `[{"id":  62,"trip_id":  2}]`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Book a Seat
+
+- `POST: api/bookSeat` `body: {"seat_id":62, "departure_city_id":1, "destination_city_id":4}`
+books a seat if the passed data is valid
+response: `{"seat_id":  61,"departure_city_id":  1,"destination_city_id":  4,"updated_at":  "2022-07-08T09:19:49.000000Z","created_at":  "2022-07-08T09:19:49.000000Z","id":  1}`
