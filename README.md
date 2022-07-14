@@ -25,7 +25,7 @@ A Fleet Managment System
 
 - create database named `robust-fleet`
 - run `php artisan migrate`
-- import each table individually if you want the test data (disabling forgein key check will make your life easier)
+- import each table individually if you want the test data (disabling foreign key check will make your life easier)
 
 ### Running the server
 
@@ -41,7 +41,7 @@ run the server locally using `php artisan serve`
 
 ## Endpoint
 
- the app only has two end points as the task requires
+ the app only has two end points as the task requires but you can find authentication and user related endpoints in the authentication branch
 
 ## Available seats
 
