@@ -57,4 +57,9 @@ class AuthUserController extends Controller
     {
         return response()->json($request->user());
     }
+
+    public function reservations(Request $request)
+    {
+        return response()->json($request->user()->reservations);
+    }
 }

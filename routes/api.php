@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthUserController::class, 'logout']);
     Route::post('/me', [AuthUserController::class, 'me']);
+    Route::post('/me/reservations', [AuthUserController::class, 'reservations']);
 });
 
 Route::post('/register', [AuthUserController::class, 'register']);

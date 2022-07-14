@@ -51,7 +51,7 @@ class TripService
     return $availableSeats;
   }
 
-  public function bookSeat($seat_id, $departureCityId, $destinationCityId)
+  public function bookSeat($seat_id, $user_id,$departureCityId, $destinationCityId)
   {
     $departureCity = City::find($departureCityId);
     $destinationCity = City::find($destinationCityId);
@@ -67,6 +67,7 @@ class TripService
 
     $reservation = Reservation::create([
       'seat_id' => $seat_id,
+      'user_id' => $user_id,
       'departure_city_id' => $departureCityId,
       'destination_city_id' => $destinationCityId,
     ]);
