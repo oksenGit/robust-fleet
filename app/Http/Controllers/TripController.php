@@ -27,8 +27,12 @@ class TripController extends Controller
     //book seat for trip.
     public function bookSeat(BookSeatRequest $request){
         $seat_id = $request->input('seat_id');
+        $user_id = null;
+        if(auth('sanctum')->check()){
+            $user_id = auth('sanctum')->user()->id;
+        }
         $departureCityId = $request->input('departure_city_id');
         $destinationCityId = $request->input('destination_city_id');
-        return $this->tripService->bookSeat($seat_id, $departureCityId, $destinationCityId);
+        return $this->tripService->bookSeat($seat_id, $user_id, $departureCityId, $destinationCityId);
     }
 }
